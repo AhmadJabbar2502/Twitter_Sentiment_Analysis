@@ -219,7 +219,7 @@ st.markdown("""
         Are likes and retweets connected? If someone likes something, do they also share it? Or are these independent 
         actions? The interactive scatter plot below lets you explore this relationship by filtering for different sentiment types.
     </div>
-""", ajax_allow_html=True)
+""", unsafe_allow_html=True)
 
 st.markdown("<div class='chart-container'>", unsafe_allow_html=True)
 
@@ -235,7 +235,7 @@ filtered_engagement = df[df['Sentiment'].isin(sentiment_filter)]
 
 fig_scatter = px.scatter(filtered_engagement, x='Retweets', y='Likes', 
                          color='Sentiment',
-                         color_discrete_map={'Positive': '#2ecc71', 'Negative': '#e74c3c', 'Neutral': '#95a5a6'},
+                         color_discrete_map={'Positive': '#2ecc71', 'Negative': '#e74c3c', 'Neutral': "#4fa7d3"},
                          size='Likes',
                          title="The Relationship: Retweets vs Likes (bubble size = like volume)",
                          labels={'Retweets': 'Times Shared (Retweets)', 'Likes': 'Times Appreciated (Likes)'})

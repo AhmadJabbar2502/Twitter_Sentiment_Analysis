@@ -226,11 +226,16 @@ with col1:
     st.write("Users ranked by number of tweets they've written")
     
     top_tweets_users = user_stats.nlargest(10, 'Total_Tweets').sort_values('Total_Tweets', ascending=True)
-    fig_tweets = px.barh(y=top_tweets_users.index, x=top_tweets_users['Total_Tweets'],
-                         title="Top 10 Most Active Users (by Tweet Count)",
-                         color=top_tweets_users['Total_Tweets'],
-                         color_continuous_scale='Viridis',
-                         labels={'x': 'Number of Tweets', 'y': 'Username'})
+    fig_tweets = px.bar(
+        x=top_tweets_users['Total_Tweets'],
+        y=top_tweets_users.index,
+        orientation='h',
+        title="Top 10 Most Active Users (by Tweet Count)",
+        color=top_tweets_users['Total_Tweets'],
+        color_continuous_scale='Viridis',
+        labels={'x': 'Number of Tweets', 'y': 'Username'}
+    )
+
     st.plotly_chart(fig_tweets, use_container_width=True)
     st.markdown("</div>", unsafe_allow_html=True)
 
@@ -240,11 +245,16 @@ with col2:
     st.write("Users ranked by total retweets their content generates")
     
     top_retweets_users = user_stats.nlargest(10, 'Total_Retweets').sort_values('Total_Retweets', ascending=True)
-    fig_retweets = px.barh(y=top_retweets_users.index, x=top_retweets_users['Total_Retweets'],
-                           title="Top 10 Users by Total Retweets",
-                           color=top_retweets_users['Total_Retweets'],
-                           color_continuous_scale='Plasma',
-                           labels={'x': 'Total Retweets', 'y': 'Username'})
+    fig_retweets = px.bar(
+        x=top_retweets_users['Total_Retweets'],
+        y=top_retweets_users.index,
+        orientation='h',
+        title="Top 10 Users by Total Retweets",
+        color=top_retweets_users['Total_Retweets'],
+        color_continuous_scale='Plasma',
+        labels={'x': 'Total Retweets', 'y': 'Username'}
+    )
+
     st.plotly_chart(fig_retweets, use_container_width=True)
     st.markdown("</div>", unsafe_allow_html=True)
 
@@ -269,11 +279,16 @@ with col1:
     st.write("Who creates content that gets liked most consistently?")
     
     top_avg_likes = user_stats.nlargest(10, 'Avg_Likes').sort_values('Avg_Likes', ascending=True)
-    fig_avg_likes = px.barh(y=top_avg_likes.index, x=top_avg_likes['Avg_Likes'],
-                            title="Top 10 Users - Avg Likes per Tweet",
-                            color=top_avg_likes['Avg_Likes'],
-                            color_continuous_scale='RdYlGn',
-                            labels={'x': 'Average Likes', 'y': 'Username'})
+    fig_avg_likes = px.bar(
+        x=top_avg_likes['Avg_Likes'],
+        y=top_avg_likes.index,
+        orientation='h',
+        title="Top 10 Users - Avg Likes per Tweet",
+        color=top_avg_likes['Avg_Likes'],
+        color_continuous_scale='RdYlGn',
+        labels={'x': 'Average Likes', 'y': 'Username'}
+    )
+
     st.plotly_chart(fig_avg_likes, use_container_width=True)
     st.markdown("</div>", unsafe_allow_html=True)
 
@@ -283,11 +298,16 @@ with col2:
     st.write("Who creates content that gets shared most consistently?")
     
     top_avg_retweets = user_stats.nlargest(10, 'Avg_Retweets').sort_values('Avg_Retweets', ascending=True)
-    fig_avg_retweets = px.barh(y=top_avg_retweets.index, x=top_avg_retweets['Avg_Retweets'],
-                               title="Top 10 Users - Avg Retweets per Tweet",
-                               color=top_avg_retweets['Avg_Retweets'],
-                               color_continuous_scale='Blues',
-                               labels={'x': 'Average Retweets', 'y': 'Username'})
+    fig_avg_retweets = px.bar(
+            x=top_avg_retweets['Avg_Retweets'],
+            y=top_avg_retweets.index,
+            orientation='h',
+            title="Top 10 Users - Avg Retweets per Tweet",
+            color=top_avg_retweets['Avg_Retweets'],
+            color_continuous_scale='Blues',
+            labels={'x': 'Average Retweets', 'y': 'Username'}
+    )
+
     st.plotly_chart(fig_avg_retweets, use_container_width=True)
     st.markdown("</div>", unsafe_allow_html=True)
 

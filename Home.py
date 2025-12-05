@@ -117,6 +117,13 @@ st.markdown("""
             border: 1px solid #eff3f4;
             margin-bottom: 15px;
             box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 15px rgba(29, 161, 242, 0.2);
+            border-color: #1DA1F2;
         }
         
         .info-card h3 {
@@ -186,13 +193,24 @@ st.markdown("""
 with st.sidebar:
     st.markdown("""
         <div style='text-align: center; padding: 20px 0;'>
-            <h1 style='color: white; font-size: 2em; margin: 0;'>📊</h1>
             <p style='color: white; font-size: 1.2em; font-weight: bold; margin: 10px 0;'>Twitter Sentiment</p>
             <p style='color: rgba(255,255,255,0.8); font-size: 0.9em; margin: 0;'>Analysis Dashboard</p>
         </div>
     """, unsafe_allow_html=True)
     
     st.markdown("<br>", unsafe_allow_html=True)
+    
+    # Add CSS to style the sidebar radio buttons
+    st.markdown("""
+        <style>
+            [data-testid="stSidebar"] .stRadio > label {
+                color: white !important;
+            }
+            [data-testid="stSidebar"] .stRadio > div[role="radiogroup"] > label {
+                color: white !important;
+            }
+        </style>
+    """, unsafe_allow_html=True)
 
 # Load data
 @st.cache_data
@@ -213,12 +231,15 @@ try:
     
     # Story Introduction
     st.markdown("""
-        <div class='story-text'>
-            <strong>Welcome to our analysis journey.</strong> Every day, millions of conversations happen on Twitter. 
-            Our platform analyzes these conversations to understand what people think, feel, and share. This dashboard 
-            tells the story of sentiment patterns, user engagement, and the hidden dynamics behind social media interactions. 
-            Whether it's discovering what resonates with audiences or identifying emerging trends, we've equipped you with 
-            the tools to see the bigger picture.
+        <div style='background: white; border-radius: 12px; padding: 25px; margin-bottom: 30px; 
+                    border-left: 5px solid #1DA1F2; box-shadow: 0 2px 8px rgba(0,0,0,0.1);'>
+            <p style='color: #0f1419; font-size: 1.05em; line-height: 1.8; margin: 0;'>
+                <strong>Welcome to our analysis journey.</strong> Every day, millions of conversations happen on Twitter. 
+                Our platform analyzes these conversations to understand what people think, feel, and share. This dashboard 
+                tells the story of sentiment patterns, user engagement, and the hidden dynamics behind social media interactions. 
+                Whether it's discovering what resonates with audiences or identifying emerging trends, we've equipped you with 
+                the tools to see the bigger picture.
+            </p>
         </div>
     """, unsafe_allow_html=True)
     

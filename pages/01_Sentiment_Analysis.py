@@ -349,7 +349,7 @@ st.markdown("""
         but how much variation is there within each category? This box plot shows the range and concentration of polarity 
         scores within positive, negative, and neutral conversations.
     </div>
-""", ajax_allow_html=True)
+""", unsafe_allow_html=True)
 
 st.markdown("<div class='chart-container'>", unsafe_allow_html=True)
 fig_box = px.box(df, x='Sentiment', y='Polarity',

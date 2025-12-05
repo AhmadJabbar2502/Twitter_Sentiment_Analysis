@@ -105,7 +105,7 @@ df = load_and_process_data()
 
 st.markdown("""
     <div class='story-text'>
-        <strong>Content is king, but context is everything.</strong> Understanding WHAT people are discussing is just as 
+        <strong></strong> Understanding WHAT people are discussing is just as 
         important as understanding HOW they feel about it. This section analyzes the actual words and themes in our conversations, 
         revealing the topics that capture attention and what matters most to our audience.
     </div>
@@ -212,7 +212,7 @@ top_words = dict(word_freq.most_common(top_n))
 fig_words = px.bar(x=list(top_words.keys()), y=list(top_words.values()),
                    title=f"The {top_n} Most Frequently Used Words",
                    color=list(range(len(top_words))),
-                   color_continuous_scale='Blues',
+                   color_continuous_scale='Blues_r',
                    labels={'x': 'Word', 'y': 'Frequency'})
 fig_words.update_xaxes(tickangle=-45)
 fig_words.update_yaxes(title_text="How Many Times it Appears")

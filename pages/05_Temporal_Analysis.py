@@ -71,7 +71,7 @@ st.markdown("""
             color: #0f1419;
         }
     </style>
-""", ajax_allow_html=True)
+""", unsafe_allow_html=True)
 
 @st.cache_data
 def load_and_process_data():
@@ -112,7 +112,7 @@ st.markdown("""
         First, let's establish the scope. What period are we analyzing? How much data do we have, and is it 
         concentrated or spread throughout the period? These questions establish the foundation for all temporal analysis.
     </div>
-""", ajax_allow_html=True)
+""", unsafe_allow_html=True)
 
 col1, col2, col3, col4 = st.columns(4)
 
@@ -154,7 +154,7 @@ with col4:
             <div style='font-size: 2em; font-weight: bold; color: #1DA1F2; margin: 10px 0;'>{avg_daily:.1f}</div>
             <div style='color: #657786; font-size: 0.85em;'>tweets per day</div>
         </div>
-    """, ajax_allow_html=True)
+    """, unsafe_allow_html=True)
 
 st.markdown("<div style='height: 20px;'></div>", unsafe_allow_html=True)
 
@@ -169,7 +169,7 @@ st.markdown("""
         volume - peaks might correspond to news events, product launches, or recurring cycles. Valleys might indicate 
         slower periods or when the audience is less active.
     </div>
-""", ajax_allow_html=True)
+""", unsafe_allow_html=True)
 
 tweets_by_date = df.groupby('Date').size()
 
@@ -189,7 +189,7 @@ st.markdown("""
         <strong>Pattern Recognition:</strong> Sharp spikes often indicate major events or announcements. 
         Steady growth suggests growing interest. Sudden drops might indicate changes in the topic or audience.
     </div>
-""", ajax_allow_html=True)
+""", unsafe_allow_html=True)
 
 st.markdown("<div style='height: 20px;'></div>", unsafe_allow_html=True)
 
@@ -203,7 +203,7 @@ st.markdown("""
         Are people getting more positive or negative over time? Or does sentiment stay stable? This stacked line chart 
         shows how each sentiment type changes day by day, revealing whether the audience mood is shifting or consistent.
     </div>
-""", ajax_allow_html=True)
+""", unsafe_allow_html=True)
 
 sentiment_by_date = df.groupby(['Date', 'Sentiment']).size().unstack(fill_value=0)
 
@@ -222,7 +222,7 @@ st.markdown("""
         <strong>What to Look For:</strong> Diverging lines mean sentiment is shifting. Parallel lines mean proportions 
         stay constant. Understanding these patterns helps you anticipate and respond to mood changes in your audience.
     </div>
-""", ajax_allow_html=True)
+""", unsafe_allow_html=True)
 
 st.markdown("<div style='height: 20px;'></div>", unsafe_allow_html=True)
 
@@ -237,7 +237,7 @@ st.markdown("""
         Understanding these patterns helps you post when audiences are most attentive. Let's explore both hourly and 
         daily patterns.
     </div>
-""", ajax_allow_html=True)
+""", unsafe_allow_html=True)
 
 col1, col2 = st.columns(2)
 
@@ -250,7 +250,7 @@ with col1:
     fig_hour = px.bar(x=tweets_by_hour.index, y=tweets_by_hour.values,
                       title="Tweet Activity by Hour of Day",
                       color=tweets_by_hour.values,
-                      color_continuous_scale='Viridis',
+                      color_continuous_scale='Blues',
                       labels={'x': 'Hour of Day (24-hour format)', 'y': 'Number of Tweets'})
     fig_hour.update_xaxes(title_text="Hour of Day")
     st.plotly_chart(fig_hour, use_container_width=True)
@@ -268,7 +268,7 @@ with col2:
     fig_day = px.bar(x=tweets_by_day.index, y=tweets_by_day.values,
                      title="Tweet Activity by Day of Week",
                      color=tweets_by_day.values,
-                     color_continuous_scale='Plasma',
+                     color_continuous_scale='Blues',
                      labels={'x': 'Day of Week', 'y': 'Number of Tweets'})
     fig_day.update_xaxes(tickangle=-45)
     st.plotly_chart(fig_day, use_container_width=True)
@@ -279,7 +279,7 @@ st.markdown("""
         <strong>Content Strategy Tip:</strong> Peak hours show maximum audience presence. But engagement metrics 
         (likes/retweets per tweet) might peak at different times when competition for attention is lower.
     </div>
-""", ajax_allow_html=True)
+""", unsafe_allow_html=True)
 
 st.markdown("<div style='height: 20px;'></div>", unsafe_allow_html=True)
 
@@ -293,7 +293,7 @@ st.markdown("""
         Finally, let's see if engagement metrics (likes and retweets per tweet) change over time. Does content get 
         more or less engagement as time progresses? Use the toggle below to choose which metric interests you most.
     </div>
-""", ajax_allow_html=True)
+""", unsafe_allow_html=True)
 
 st.markdown("<div class='chart-container'>", unsafe_allow_html=True)
 
@@ -336,4 +336,4 @@ st.markdown("""
         <strong>Key Insight:</strong> Rising trends suggest improving content quality or growing audience interest. 
         Declining trends might indicate audience fatigue or changing topic relevance. Flat trends suggest stability and predictability.
     </div>
-""", ajax_allow_html=True)
+""", unsafe_allow_html=True)
