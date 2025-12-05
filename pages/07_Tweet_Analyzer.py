@@ -3,7 +3,6 @@ import streamlit as st
 import pandas as pd
 from textblob import TextBlob
 import plotly.graph_objects as go
-import time
 
 st.set_page_config(page_title="Tweet Analyzer", layout="wide")
 
@@ -106,17 +105,6 @@ st.markdown("""
             margin: 10px 0;
             color: #0f1419;
         }
-        
-        .tweet-display {
-            background: #f7f9fa;
-            padding: 15px;
-            border-radius: 8px;
-            border-left: 3px solid #1DA1F2;
-            margin: 10px 0;
-            font-style: normal;
-            color: #0f1419;
-            line-height: 1.6;
-        }
     </style>
 """, unsafe_allow_html=True)
 
@@ -158,33 +146,31 @@ tweet_text = st.text_area(
     label_visibility="collapsed"
 )
 
-col1, col2 = st.columns([4, 1])
+col1, col2, col3 = st.columns([1, 1, 8])
 
 with col1:
-    st.write(f"Character count: {len(tweet_text)}/280")
+    analyze_button = st.button("Analyze Tweet", use_container_width=True, type="primary")
 
 with col2:
-    analyze_button = st.button("Analyze Tweet", use_container_width=True, type="primary")
+    st.write(f"**{len(tweet_text)}/280**")
 
 st.markdown("</div>", unsafe_allow_html=True)
 
+# Initialize session state for tweet analysis
+if 'analyzed_tweet' not in st.session_state:
+    st.session_state.analyzed_tweet = None
+
 if analyze_button and tweet_text:
     # Show progress indicator
-    progress_bar = st.progress(0)
-    status_text = st.empty()
+    with st.spinner("Analyzing your tweet..."):
+        import time
+        time.sleep(0.5)  # Simulate processing
     
-    # Simulate analysis stages
-    for i in range(100):
-        progress_bar.progress(i + 1)
-        time.sleep(0.01)
-    
-    progress_bar.empty()
-    status_text.empty()
-    
-    st.markdown("---")
-    
-    # Analyze the tweet
-    blob = TextBlob(tweet_text)
+    st.session_state.analyzed_tweet = tweet_text
+
+# Show analysis results only if a tweet has been analyzed
+blob = TextBlob(tweet_text)
+if st.session_state.analyzed_tweet:
     polarity = blob.sentiment.polarity
     subjectivity = blob.sentiment.subjectivity
     
@@ -312,69 +298,38 @@ if analyze_button and tweet_text:
         horizontal=True
     )
     
-    # Enhanced rewriting functions
+    # Helper functions for rewriting
     def make_positive(text):
-        positive_replacements = {
-            'bad': 'excellent', 'terrible': 'fantastic', 'awful': 'amazing', 'hate': 'love',
-            'worst': 'best', 'problem': 'exciting opportunity', 'fail': 'succeed brilliantly', 
-            'wrong': 'absolutely right', 'difficult': 'wonderfully challenging',
-            'impossible': 'entirely possible', 'never': 'always', 'lack': 'abundantly have',
-            'missing': 'wonderfully includes', 'sad': 'thrilled', 'disappointed': 'delighted',
-            'poor': 'exceptional', 'mediocre': 'incredible', 'struggling': 'thriving',
-            'disappointing': 'inspiring', 'weak': 'powerful', 'vulnerable': 'resilient',
-            'broken': 'innovative', 'useless': 'invaluable', 'waste': 'investment',
-            'confused': 'enlightened', 'lost': 'discovering', 'painful': 'rewarding'
+        positive_words = {
+            'bad': 'good', 'terrible': 'wonderful', 'awful': 'amazing', 'hate': 'love',
+            'worst': 'best', 'problem': 'opportunity', 'fail': 'succeed', 'wrong': 'right',
+            'difficult': 'challenging', 'impossible': 'possible', 'never': 'always',
+            'lack': 'have', 'missing': 'includes', 'sad': 'happy', 'disappointed': 'pleased'
         }
-        
         result = text.lower()
-        # Sort by length (longest first) to avoid partial replacements
-        for word in sorted(positive_replacements.keys(), key=len, reverse=True):
-            result = result.replace(word, positive_replacements[word])
-        
-        # Add positive reinforcement
-        positive_starters = ["Thrilled to share: ", "Excited to announce: ", "Fantastic news: ", "Amazing: "]
-        result = positive_starters[hash(text) % len(positive_starters)] + result
+        for word, replacement in positive_words.items():
+            result = result.replace(word, replacement)
         return result.capitalize()
     
     def make_negative(text):
-        negative_replacements = {
-            'good': 'mediocre', 'great': 'disappointing', 'love': 'dislike intensely',
-            'best': 'worst', 'wonderful': 'dreadful', 'amazing': 'underwhelming',
-            'excellent': 'abysmal', 'perfect': 'deeply flawed', 'happy': 'miserable',
-            'thrilled': 'devastated', 'fantastic': 'terrible', 'incredible': 'pathetic',
-            'beautiful': 'hideous', 'brilliant': 'dim-witted', 'exceptional': 'ordinary',
-            'succeed': 'fail miserably', 'winning': 'losing badly', 'powerful': 'weak',
-            'succeed': 'fail spectacularly', 'thriving': 'struggling', 'inspiring': 'discouraging',
-            'valuable': 'worthless', 'worthy': 'pointless', 'deserve': "don't deserve"
+        negative_words = {
+            'good': 'mediocre', 'great': 'disappointing', 'love': 'dislike',
+            'best': 'worst', 'wonderful': 'terrible', 'amazing': 'dreadful',
+            'excellent': 'poor', 'perfect': 'flawed', 'happy': 'unhappy'
         }
-        
         result = text.lower()
-        # Sort by length (longest first) to avoid partial replacements
-        for word in sorted(negative_replacements.keys(), key=len, reverse=True):
-            result = result.replace(word, negative_replacements[word])
-        
-        # Add negative reinforcement
-        negative_starters = ["Unfortunately: ", "Regrettably: ", "Disappointingly: ", "Sadly: "]
-        result = negative_starters[hash(text) % len(negative_starters)] + result
+        for word, replacement in negative_words.items():
+            result = result.replace(word, replacement)
         return result.capitalize()
     
     def make_neutral(text):
         neutral_replacements = {
-            'love': 'prefer', 'hate': 'dislike', 'amazing': 'notable', 'terrible': 'suboptimal',
-            'wonderful': 'acceptable', 'awful': 'inadequate', 'beautiful': 'aesthetically pleasing',
-            'ugly': 'unattractive', 'thrilled': 'satisfied', 'devastated': 'displeased',
-            'fantastic': 'satisfactory', 'dreadful': 'unfavorable', 'excited': 'interested',
-            'heartbroken': 'upset', 'ecstatic': 'content', 'furious': 'annoyed'
+            'love': 'prefer', 'hate': 'dislike', 'amazing': 'notable', 'terrible': 'inadequate',
+            'wonderful': 'good', 'awful': 'poor', 'beautiful': 'pleasant', 'ugly': 'unattractive'
         }
-        
         result = text.lower()
-        # Sort by length (longest first) to avoid partial replacements
-        for word in sorted(neutral_replacements.keys(), key=len, reverse=True):
-            result = result.replace(word, neutral_replacements[word])
-        
-        # Add neutral framing
-        neutral_starters = ["According to our analysis: ", "In summary: ", "To clarify: ", "Based on facts: "]
-        result = neutral_starters[hash(text) % len(neutral_starters)] + result
+        for word, replacement in neutral_replacements.items():
+            result = result.replace(word, replacement)
         return result.capitalize()
     
     if target_sentiment == "Keep Current":
@@ -384,16 +339,16 @@ if analyze_button and tweet_text:
         rewritten = make_positive(tweet_text)
         st.markdown("""
             <div class='positive-box'>
-                <strong>Strategy:</strong> Replaced neutral/negative words with enthusiastic, positive alternatives. 
-                This version emphasizes opportunities, achievements, and benefits with emotional resonance.
+                <strong>Strategy:</strong> Replaced negative/critical words with positive alternatives. 
+                This version emphasizes opportunities, achievements, and benefits.
             </div>
         """, unsafe_allow_html=True)
     elif target_sentiment == "Make Negative":
         rewritten = make_negative(tweet_text)
         st.markdown("""
             <div class='negative-box'>
-                <strong>Strategy:</strong> Shifted language toward critical, unfavorable perspectives. 
-                Use this carefully - strong negativity can spark discussion but may alienate audiences.
+                <strong>Strategy:</strong> Shifted language toward critical perspectives. 
+                Use this carefully - negativity can spark discussion but may also alienate audiences.
             </div>
         """, unsafe_allow_html=True)
     else:  # Make Neutral
@@ -401,7 +356,7 @@ if analyze_button and tweet_text:
         st.markdown("""
             <div class='neutral-box'>
                 <strong>Strategy:</strong> Removed emotional language and replaced it with factual, objective terms. 
-                This version maintains information while adopting a professional, balanced tone.
+                This version is more professional and balanced.
             </div>
         """, unsafe_allow_html=True)
     
@@ -432,19 +387,10 @@ if analyze_button and tweet_text:
     
     with col1:
         st.write("**Original Tweet:**")
-        st.markdown(f"""
-            <div class='tweet-display'>
-                {tweet_text}
-            </div>
-        """, unsafe_allow_html=True)
-        
+        st.write(tweet_text)
         st.write("")
         st.write("**Rewritten Tweet:**")
-        st.markdown(f"""
-            <div class='tweet-display'>
-                {rewritten}
-            </div>
-        """, unsafe_allow_html=True)
+        st.write(rewritten)
     
     with col2:
         st.markdown(f"""
@@ -452,7 +398,6 @@ if analyze_button and tweet_text:
                 <div style='color: #657786; font-size: 0.85em; font-weight: 600; text-transform: uppercase;'>New Sentiment</div>
                 <div style='font-size: 1.8em; font-weight: bold; color: {rewritten_color}; margin: 10px 0;'>{rewritten_sentiment}</div>
                 <div style='color: #657786; font-size: 0.85em;'>Polarity: {rewritten_polarity:.3f}</div>
-                <div style='color: #657786; font-size: 0.85em; margin-top: 10px;'>Subjectivity: {rewritten_subjectivity:.3f}</div>
             </div>
         """, unsafe_allow_html=True)
     
@@ -464,7 +409,7 @@ if analyze_button and tweet_text:
     col1, col2 = st.columns(2)
     
     with col1:
-        st.write("**Ready to use the rewritten version?**")
+        st.write("**Want to use the rewritten version?**")
         st.code(rewritten, language="text")
     
     with col2:
@@ -489,7 +434,7 @@ if analyze_button and tweet_text:
         </div>
     """, unsafe_allow_html=True)
 
-elif not tweet_text and not analyze_button:
+else:
     st.markdown("""
         <div class='insight-box'>
             Enter a tweet above to get started. We'll analyze its sentiment and provide suggestions 
