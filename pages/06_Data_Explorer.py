@@ -152,7 +152,6 @@ st.markdown("""
     </div>
 """, unsafe_allow_html=True)
 
-st.markdown("<div class='filter-container'>", unsafe_allow_html=True)
 
 col1, col2, col3 = st.columns(3)
 
