@@ -136,7 +136,7 @@ st.markdown("""
     </div>
 """, unsafe_allow_html=True)
 
-st.markdown("<div class='chart-container'>", unsafe_allow_html=True)
+
 
 tweet_text = st.text_area(
     "Your Tweet:",
@@ -223,7 +223,7 @@ if st.session_state.analyzed_tweet:
     st.markdown("<div style='height: 20px;'></div>", unsafe_allow_html=True)
     
     # Sentiment Gauge
-    st.markdown("<div class='chart-container'>", unsafe_allow_html=True)
+    
     
     fig = go.Figure(go.Indicator(
         mode="gauge+number+delta",
@@ -290,7 +290,7 @@ if st.session_state.analyzed_tweet:
         </div>
     """, unsafe_allow_html=True)
     
-    st.markdown("<div class='chart-container'>", unsafe_allow_html=True)
+    
     
     target_sentiment = st.radio(
         "What tone would you like?",
@@ -366,7 +366,7 @@ if st.session_state.analyzed_tweet:
     
     st.subheader("Your Rewritten Tweet")
     
-    st.markdown("<div class='chart-container'>", unsafe_allow_html=True)
+    
     
     # Analyze rewritten version
     rewritten_blob = TextBlob(rewritten)

@@ -173,7 +173,7 @@ st.markdown("""
 col1, col2 = st.columns(2)
 
 with col1:
-    st.markdown("<div class='chart-container'>", unsafe_allow_html=True)
+    #
     st.write("**Average Likes by Sentiment Type**")
     st.write("Which sentiment gets the most appreciation?")
     
@@ -188,7 +188,7 @@ with col1:
     st.markdown("</div>", unsafe_allow_html=True)
 
 with col2:
-    st.markdown("<div class='chart-container'>", unsafe_allow_html=True)
+    #
     st.write("**Average Retweets by Sentiment Type**")
     st.write("Which sentiment gets shared the most?")
     
@@ -221,7 +221,7 @@ st.markdown("""
     </div>
 """, unsafe_allow_html=True)
 
-st.markdown("<div class='chart-container'>", unsafe_allow_html=True)
+#
 
 # Interactive filter
 sentiment_filter = st.multiselect(
@@ -268,7 +268,7 @@ st.markdown("""
 col1, col2 = st.columns(2)
 
 with col1:
-    st.markdown("<div class='chart-container'>", unsafe_allow_html=True)
+    #
     st.write("**Distribution of Likes**")
     st.write("How varied are like counts across tweets?")
     
@@ -282,7 +282,7 @@ with col1:
     st.markdown("</div>", unsafe_allow_html=True)
 
 with col2:
-    st.markdown("<div class='chart-container'>", unsafe_allow_html=True)
+    #
     st.write("**Distribution of Retweets**")
     st.write("How varied are retweet counts across tweets?")
     

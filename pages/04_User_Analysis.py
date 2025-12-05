@@ -186,7 +186,7 @@ st.markdown("""
     </div>
 """, unsafe_allow_html=True)
 
-st.markdown("<div class='chart-container'>", unsafe_allow_html=True)
+#
 top_users_likes = user_stats.head(10)
 fig_likes = px.bar(x=top_users_likes.index, y=top_users_likes['Total_Likes'],
                    title="Top 10 Users by Total Likes",
@@ -221,7 +221,7 @@ st.markdown("""
 col1, col2 = st.columns(2)
 
 with col1:
-    st.markdown("<div class='chart-container'>", unsafe_allow_html=True)
+    #
     st.write("**Who Posts Most?**")
     st.write("Users ranked by number of tweets they've written")
     
@@ -240,7 +240,7 @@ with col1:
     st.markdown("</div>", unsafe_allow_html=True)
 
 with col2:
-    st.markdown("<div class='chart-container'>", unsafe_allow_html=True)
+    #
     st.write("**Who Gets Most Shares?**")
     st.write("Users ranked by total retweets their content generates")
     
@@ -274,7 +274,7 @@ st.markdown("""
 col1, col2 = st.columns(2)
 
 with col1:
-    st.markdown("<div class='chart-container'>", unsafe_allow_html=True)
+    #
     st.write("**Average Likes Per Tweet**")
     st.write("Who creates content that gets liked most consistently?")
     
@@ -293,7 +293,7 @@ with col1:
     st.markdown("</div>", unsafe_allow_html=True)
 
 with col2:
-    st.markdown("<div class='chart-container'>", unsafe_allow_html=True)
+    #
     st.write("**Average Retweets Per Tweet**")
     st.write("Who creates content that gets shared most consistently?")
     

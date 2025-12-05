@@ -178,7 +178,7 @@ st.markdown("""
     </div>
 """, unsafe_allow_html=True)
 
-st.markdown("<div class='chart-container'>", unsafe_allow_html=True)
+#
 fig_length = px.histogram(df, x='Text_Length', nbins=30,
                           title="How Many Words in a Typical Tweet?",
                           color_discrete_sequence=['#1DA1F2'],
@@ -201,7 +201,6 @@ st.markdown("""
     </div>
 """, unsafe_allow_html=True)
 
-st.markdown("<div class='chart-container'>", unsafe_allow_html=True)
 
 all_words = ' '.join(df['Cleaned_Text']).split()
 word_freq = Counter(all_words)
@@ -240,7 +239,7 @@ st.markdown("""
     </div>
 """, unsafe_allow_html=True)
 
-st.markdown("<div class='chart-container'>", unsafe_allow_html=True)
+#
 
 all_text = ' '.join(df['Cleaned_Text'])
 wordcloud = WordCloud(width=900, height=400, 
@@ -276,7 +275,7 @@ colors = ['Greens', 'Reds', 'Greys']
 
 for tab, sentiment, color in zip(tabs, sentiments, colors):
     with tab:
-        st.markdown("<div class='chart-container'>", unsafe_allow_html=True)
+        #
         
         sentiment_text = ' '.join(df[df['Sentiment'] == sentiment]['Cleaned_Text'])
         
@@ -309,7 +308,7 @@ st.markdown("""
     </div>
 """, unsafe_allow_html=True)
 
-st.markdown("<div class='chart-container'>", unsafe_allow_html=True)
+#
 fig_length_sentiment = px.box(df, x='Sentiment', y='Text_Length',
                               color='Sentiment',
                               color_discrete_map={'Positive': '#2ecc71', 'Negative': '#e74c3c', 'Neutral': '#95a5a6'},

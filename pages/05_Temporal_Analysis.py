@@ -173,7 +173,7 @@ st.markdown("""
 
 tweets_by_date = df.groupby('Date').size()
 
-st.markdown("<div class='chart-container'>", unsafe_allow_html=True)
+#
 fig_volume = px.line(x=tweets_by_date.index, y=tweets_by_date.values,
                      title="Daily Tweet Volume: Are There Peaks and Valleys?",
                      markers=True,
@@ -207,7 +207,7 @@ st.markdown("""
 
 sentiment_by_date = df.groupby(['Date', 'Sentiment']).size().unstack(fill_value=0)
 
-st.markdown("<div class='chart-container'>", unsafe_allow_html=True)
+#
 fig_sentiment = px.line(sentiment_by_date,
                         title="Sentiment Evolution: Is the Mood Changing?",
                         markers=True,
@@ -242,7 +242,7 @@ st.markdown("""
 col1, col2 = st.columns(2)
 
 with col1:
-    st.markdown("<div class='chart-container'>", unsafe_allow_html=True)
+    #
     st.write("**Best Hours of the Day**")
     st.write("When do most conversations happen?")
     
@@ -257,7 +257,7 @@ with col1:
     st.markdown("</div>", unsafe_allow_html=True)
 
 with col2:
-    st.markdown("<div class='chart-container'>", unsafe_allow_html=True)
+    #
     st.write("**Best Days of the Week**")
     st.write("Does the day of week matter for engagement?")
     
@@ -295,7 +295,7 @@ st.markdown("""
     </div>
 """, unsafe_allow_html=True)
 
-st.markdown("<div class='chart-container'>", unsafe_allow_html=True)
+#
 
 metric_choice = st.radio(
     "Which engagement metric interests you?",

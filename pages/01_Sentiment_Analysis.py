@@ -174,7 +174,6 @@ st.markdown("""
 col1, col2 = st.columns(2)
 
 with col1:
-    st.markdown("<div class='chart-container'>", unsafe_allow_html=True)
     sentiment_counts = df['Sentiment'].value_counts()
     fig_pie = px.pie(values=sentiment_counts.values, names=sentiment_counts.index,
                      color_discrete_map={'Positive': '#2ecc71', 'Negative': '#e74c3c', 'Neutral': '#95a5a6'},
@@ -184,7 +183,6 @@ with col1:
     st.markdown("</div>", unsafe_allow_html=True)
 
 with col2:
-    st.markdown("<div class='chart-container'>", unsafe_allow_html=True)
     sentiment_counts = df['Sentiment'].value_counts()
     fig_bar = px.bar(x=sentiment_counts.index, y=sentiment_counts.values,
                      color=sentiment_counts.index,
@@ -221,7 +219,7 @@ st.markdown("""
 col1, col2 = st.columns(2)
 
 with col1:
-    st.markdown("<div class='chart-container'>", unsafe_allow_html=True)
+    #
     
     st.write("**What is Polarity?** It measures how positive (-1) to negative (+1) a piece of text is.")
     fig_polarity = px.histogram(df, x='Polarity', nbins=40,
@@ -234,7 +232,7 @@ with col1:
     st.markdown("</div>", unsafe_allow_html=True)
 
 with col2:
-    st.markdown("<div class='chart-container'>", unsafe_allow_html=True)
+    #
     
     st.write("**What is Subjectivity?** It measures how much opinion (1) vs. fact (0) a piece of text contains.")
     fig_subjectivity = px.histogram(df, x='Subjectivity', nbins=40,
@@ -306,7 +304,7 @@ st.markdown("""
     </div>
 """, unsafe_allow_html=True)
 
-st.markdown("<div class='chart-container'>", unsafe_allow_html=True)
+#
 
 # Interactive selection for scatter plot
 sentiment_filter = st.multiselect(
@@ -351,7 +349,7 @@ st.markdown("""
     </div>
 """, unsafe_allow_html=True)
 
-st.markdown("<div class='chart-container'>", unsafe_allow_html=True)
+#
 fig_box = px.box(df, x='Sentiment', y='Polarity',
                  color='Sentiment',
                  color_discrete_map={'Positive': '#2ecc71', 'Negative': '#e74c3c', 'Neutral': '#95a5a6'},
