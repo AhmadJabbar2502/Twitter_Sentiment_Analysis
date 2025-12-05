@@ -91,7 +91,7 @@ df = load_data()
 
 st.markdown("""
     <div class='story-text'>
-        <strong>Sometimes you need to see the details.</strong> While our analysis pages show patterns and trends, 
+        While our analysis pages show patterns and trends, 
         this explorer lets you drill down into individual conversations. Want to see all negative tweets? Search for 
         specific users? Find high-engagement tweets? You control the filters, and you can export results for further analysis.
     </div>
