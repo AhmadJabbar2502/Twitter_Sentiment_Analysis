@@ -1,6 +1,7 @@
+streamlit==1.32.2
+altair==4.2.2
 numpy
 pandas
-streamlit
 plotly
 textblob
 matplotlib
@@ -9,4 +10,3 @@ scikit-learn
 openpyxl
 python-dateutil
 nltk
-altair==4.2.2
